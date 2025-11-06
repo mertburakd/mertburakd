@@ -1,0 +1,37 @@
+name: Update GitHub Stats
+
+on:
+  schedule:
+    # Her gün saat 00:00'da çalışır (UTC)
+    - cron: '0 0 * * *'
+  workflow_dispatch: # Manuel olarak da çalıştırabilirsiniz
+  push:
+    branches:
+      - main
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+          # Token'ınızı GitHub Settings → Secrets → Actions'dan GH_TOKEN adıyla ekleyin
+
+      - name: Update README
+        run: |
+          echo "Stats otomatik olarak güncelleniyor..."
+          # README'niz zaten github-readme-stats kullanıyor
+          # Token GitHub Actions tarafından otomatik kullanılacak
+
+      - name: Commit changes
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add README.md
+          git diff --quiet && git diff --staged --quiet || git commit -m "Update GitHub stats [skip ci]"
+          git push

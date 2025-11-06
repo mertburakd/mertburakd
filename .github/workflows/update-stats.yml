@@ -1,13 +1,13 @@
 name: Update GitHub Stats
 
 on:
-  schedule:
-    # Her gün saat 00:00'da çalışır (UTC)
-    - cron: '0 0 * * *'
-  workflow_dispatch: # Manuel olarak da çalıştırabilirsiniz
-  push:
-    branches:
-      - main
+  workflow_dispatch: # Manuel tetikleme için (Actions sekmesinden "Run workflow" butonuyla)
+  # schedule:
+  #   # Her gün saat 00:00'da çalışır (UTC) - Test sonrası aktif edin
+  #   - cron: '0 0 * * *'
+  # push:
+  #   branches:
+  #     - main
 
 jobs:
   update-readme:
